@@ -25,6 +25,16 @@
       }
     }
 
+    delete(id) {
+      this.objects[id].visible = false;
+    }
+
+    show(id) {
+      console.log("show " + id);
+      console.log( this.objects[id].visible)
+      this.objects[id].visible = true;
+    }
+
     addInit(id, x, y) {
       this.objects[id] = { id: id, x: x, y: y, visible: true };
     }
@@ -62,10 +72,19 @@
 
   let scene = new Scene();
   scene.addInit("cuisine", 0, 0);
-  scene.addInit("boiteoeufs", 500, 400);
+
   scene.addCropInit("robinet-", "cuisine", 20, 420, 120, 540);
   scene.addCrop("robinet+", "cuisineOuverte", 20, 420, 120, 540);
+  scene.addCrop("placardEvier+", "cuisineOuverte", 90, 550, 200, 700);
+  scene.addInit("oeufs", 100, 600);
+  scene.addCropInit("placardEvier-", "cuisine", 90, 550, 200, 700);
   scene.addAudio("robinet+");
+
+  scene.addCropInit("fenetre-", "cuisine", 120, 180, 250, 400);
+  scene.addCrop("fenetre+", "cuisineOuverte", 120, 180, 250, 400);
+
+  scene.addInit("saladier", 550, 340);
+  scene.add("saladier+oeufs", 550, 340);
 
   scene = scene;
 
@@ -84,6 +103,25 @@
       scene.play(id2);
       scene = scene;
     } else console.log("oups");
+  }
+
+  function drag(event, id) {
+    event.dataTransfer.setData("id", id);
+    console.log("drag " + id);
+  }
+
+  function drop(event, id) {
+    event.preventDefault();
+    var id2 = event.dataTransfer.getData("id");
+    console.log("drop " + id2 + " on " + id);
+    scene.delete(id);
+    scene.delete(id2);
+    scene.show(id + "+" + id2);
+    scene = scene;
+  }
+
+  function dragover(event, id) {
+    event.preventDefault();
   }
 </script>
 
@@ -117,6 +155,10 @@
       </div>
     {:else}
       <div
+        draggable="true"
+        on:dragover={event => dragover(event, id)}
+        on:dragstart={event => drag(event, id)}
+        on:drop={event => drop(event, id)}
         on:click={() => click(id)}
         style={'display:inline-block; ' + 'left: ' + x + 'px; top: ' + y + 'px'}>
         <img alt={id} src={'assets/' + id + '.png'} />
