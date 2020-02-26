@@ -4,6 +4,7 @@
       this.objects = {};
       this.audios = {};
       this.rules = [];
+      this.audios["error"] = new Audio("assets/error.mp3");
     }
 
     add(id, x, y) {
@@ -14,8 +15,15 @@
       this.audios[id] = new Audio("assets/" + id + ".mp3");
     }
 
+    contains(id) {
+      return this.objects[id] != undefined;
+    }
     play(id) {
       if (this.audios[id]) this.audios[id].play();
+    }
+
+    playError() {
+      this.play("error");
     }
 
     stop(id) {
@@ -31,7 +39,7 @@
 
     show(id) {
       console.log("show " + id);
-      console.log( this.objects[id].visible)
+      console.log(this.objects[id].visible);
       this.objects[id].visible = true;
     }
 
@@ -102,7 +110,7 @@
       scene.stop(id);
       scene.play(id2);
       scene = scene;
-    } else console.log("oups");
+    } else scene.playError();
   }
 
   function drag(event, id) {
@@ -112,12 +120,18 @@
 
   function drop(event, id) {
     event.preventDefault();
-    var id2 = event.dataTransfer.getData("id");
-    console.log("drop " + id2 + " on " + id);
-    scene.delete(id);
-    scene.delete(id2);
-    scene.show(id + "+" + id2);
-    scene = scene;
+    const idSource = event.dataTransfer.getData("id");
+    console.log("drop " + idSource + " on " + id);
+    action2(idSource, id);
+  }
+
+  function action2(idSource, idTarget) {
+    if (scene.contains(idTarget + "+" + idSource)) {
+      scene.delete(idSource);
+      scene.delete(idTarget);
+      scene.show(idTarget + "+" + idSource);
+      scene = scene;
+    } else scene.playError();
   }
 
   function dragover(event, id) {
