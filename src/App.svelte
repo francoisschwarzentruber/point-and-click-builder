@@ -63,8 +63,8 @@
   let scene = new Scene();
   scene.addInit("cuisine", 0, 0);
   scene.addInit("boiteoeufs", 500, 400);
-  scene.addCrop("robinet-", "cuisine", 20, 420, 120, 540);
-  scene.addCropInit("robinet+", "cuisineOuverte", 20, 420, 120, 540);
+  scene.addCropInit("robinet-", "cuisine", 20, 420, 120, 540);
+  scene.addCrop("robinet+", "cuisineOuverte", 20, 420, 120, 540);
   scene.addAudio("robinet+");
 
   scene = scene;
