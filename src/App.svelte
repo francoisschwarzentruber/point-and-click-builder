@@ -33,14 +33,19 @@
       }
     }
 
-    delete(id) {
+    hide(id) {
       this.objects[id].visible = false;
+      scene.stop(id);
     }
 
+    isUseful(id) {
+      return id != "cuisine";
+    }
     show(id) {
       console.log("show " + id);
       console.log(this.objects[id].visible);
       this.objects[id].visible = true;
+      this.play(id);
     }
 
     addInit(id, x, y) {
@@ -78,24 +83,6 @@
     addRule(ruleText) {}
   }
 
-  let scene = new Scene();
-  scene.addInit("cuisine", 0, 0);
-
-  scene.addCropInit("robinet-", "cuisine", 20, 420, 120, 540);
-  scene.addCrop("robinet+", "cuisineOuverte", 20, 420, 120, 540);
-  scene.addCrop("placardEvier+", "cuisineOuverte", 90, 550, 200, 700);
-  scene.addInit("oeufs", 100, 600);
-  scene.addCropInit("placardEvier-", "cuisine", 90, 550, 200, 700);
-  scene.addAudio("robinet+");
-
-  scene.addCropInit("fenetre-", "cuisine", 120, 180, 250, 400);
-  scene.addCrop("fenetre+", "cuisineOuverte", 120, 180, 250, 400);
-
-  scene.addInit("saladier", 550, 340);
-  scene.add("saladier+oeufs", 550, 340);
-
-  scene = scene;
-
   function IDgetDual(id) {
     if (id[id.length - 1] == "+") return id.substr(0, id.length - 1) + "-";
     if (id[id.length - 1] == "-") return id.substr(0, id.length - 1) + "+";
@@ -105,12 +92,10 @@
   function click(id) {
     const id2 = IDgetDual(id);
     if (id2 != undefined) {
-      scene.objects[id].visible = false;
-      scene.objects[id2].visible = true;
-      scene.stop(id);
-      scene.play(id2);
+      scene.hide(id);
+      scene.show(id2);
       scene = scene;
-    } else scene.playError();
+    } else if (scene.audios[id]) scene.audios[id].play();
   }
 
   function drag(event, id) {
@@ -127,8 +112,8 @@
 
   function action2(idSource, idTarget) {
     if (scene.contains(idTarget + "+" + idSource)) {
-      scene.delete(idSource);
-      scene.delete(idTarget);
+      scene.hide(idSource);
+      scene.hide(idTarget);
       scene.show(idTarget + "+" + idSource);
       scene = scene;
     } else scene.playError();
@@ -137,6 +122,28 @@
   function dragover(event, id) {
     event.preventDefault();
   }
+
+  /**** script of the game
+   */
+
+  let scene = new Scene();
+  scene.addInit("cuisine", 0, 0);
+
+  scene.addCropInit("robinet-", "cuisine", 20, 420, 120, 540);
+  scene.addCrop("robinet+", "cuisineOuverte", 20, 420, 120, 540);
+  scene.addCrop("placardEvier+", "cuisineOuverte", 90, 550, 200, 700);
+  scene.addInit("oeufs", 100, 600);
+  scene.addCropInit("placardEvier-", "cuisine", 90, 550, 200, 700);
+  scene.addAudio("robinet+");
+
+  scene.addCropInit("fenetre-", "cuisine", 120, 180, 250, 400);
+  scene.addCrop("fenetre+", "cuisineOuverte", 120, 180, 250, 400);
+
+  scene.addInit("saladier", 550, 340);
+
+  scene.addInit("mouton", 650, 540);
+  scene.addAudio("mouton");
+  scene.add("saladier+oeufs", 550, 340);
 </script>
 
 <style>
@@ -144,39 +151,43 @@
     position: absolute;
   }
 
-  div:hover {
-    border: yellow;
-    border-width: 3px;
-    border-style: solid;
+  .object:hover {
   }
 
-  div {
+  .object {
     position: absolute;
-    border: 3px solid transparent;
+  }
+
+  .scene {
+    position: absolute;
   }
 </style>
 
-{#each Object.values(scene.objects) as { id, x, y, imgId, width, height, visible }}
-  {#if visible}
-    {#if imgId}
-      <div
-        on:click={() => click(id)}
-        style={'overflow: hidden; ' + 'left: ' + x + 'px; top: ' + y + 'px; width: ' + width + 'px; height: ' + height + 'px'}>
-        <img
-          alt={id}
-          src={'assets/' + imgId + '.png'}
-          style={'left: -' + x + 'px; top: -' + y + 'px;'} />
-      </div>
-    {:else}
-      <div
-        draggable="true"
-        on:dragover={event => dragover(event, id)}
-        on:dragstart={event => drag(event, id)}
-        on:drop={event => drop(event, id)}
-        on:click={() => click(id)}
-        style={'display:inline-block; ' + 'left: ' + x + 'px; top: ' + y + 'px'}>
-        <img alt={id} src={'assets/' + id + '.png'} />
-      </div>
+<div class="scene">
+  {#each Object.values(scene.objects) as { id, x, y, imgId, width, height, visible }}
+    {#if visible}
+      {#if imgId}
+        <div
+          class={scene.isUseful(id) ? 'object' : 'decoration'}
+          on:click={() => click(id)}
+          style={'position: absolute; overflow: hidden; ' + 'left: ' + x + 'px; top: ' + y + 'px; width: ' + width + 'px; height: ' + height + 'px'}>
+          <img
+            alt={id}
+            src={'assets/' + imgId + '.png'}
+            style={'position: absolute; left: -' + x + 'px; top: -' + y + 'px;'} />
+        </div>
+      {:else}
+        <div
+          class={scene.isUseful(id) ? 'object' : 'decoration'}
+          draggable="true"
+          on:dragover={event => dragover(event, id)}
+          on:dragstart={event => drag(event, id)}
+          on:drop={event => drop(event, id)}
+          on:click={() => click(id)}
+          style={'position: absolute; display:inline-block; ' + 'left: ' + x + 'px; top: ' + y + 'px'}>
+          <img alt={id} src={'assets/' + id + '.png'} />
+        </div>
+      {/if}
     {/if}
-  {/if}
-{/each}
+  {/each}
+</div>
