@@ -143,6 +143,9 @@
 
   scene.addInit("mouton", 650, 540);
   scene.addAudio("mouton");
+
+  scene.addInit("radio", 560, 210);
+  scene.addAudio("radio");
   scene.add("saladier+oeufs", 550, 340);
 </script>
 
