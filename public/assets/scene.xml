@@ -1,7 +1,7 @@
 <scene>
 	<object-init id="cuisine" x="0" y="0" />
 	<object-init id="robinet-" src="cuisine" x="20" y="420" width="120" height="540" />
-	<object-init id="robinet+" src="cuisineOuverte" x="20" y="420" width="120" height="540" />
+	<object id="robinet+" src="cuisineOuverte" x="20" y="420" width="120" height="540" />
 	<object id="placardEvier+" src="cuisineOuverte" x="90" y="550" width="200" height="700" />
 	<object-init id="oeufs" x="100" y="600" />
 	<object-init id="placardEvier-" src="cuisine" x="90" y="550" width="200" height="700" />
