@@ -1,10 +1,61 @@
 <script>
   class Scene {
-    constructor() {
+    constructor(filename, func) {
       this.objects = {};
       this.audios = {};
       this.rules = [];
       this.audios["error"] = new Audio("assets/error.mp3");
+
+      fetch(filename)
+        .then(response => response.text())
+        .then(text =>
+          this.load(new DOMParser().parseFromString(text, "text/xml"))
+        )
+        .then(func);
+    }
+
+    load(xmlDoc) {
+      console.log(xmlDoc.documentElement);
+      for (let e of xmlDoc.documentElement.children) {
+        switch (e.nodeName) {
+          case "object-init":
+            if (e.getAttribute("src"))
+              this.addCropInit(
+                e.getAttribute("id"),
+                e.getAttribute("src"),
+                e.getAttribute("x"),
+                e.getAttribute("y"),
+                e.getAttribute("width"),
+                e.getAttribute("height")
+              );
+            else
+              this.addInit(
+                e.getAttribute("id"),
+                e.getAttribute("x"),
+                e.getAttribute("y")
+              );
+            break;
+          case "object":
+            if (e.getAttribute("src"))
+              this.addCrop(
+                e.getAttribute("id"),
+                e.getAttribute("src"),
+                e.getAttribute("x"),
+                e.getAttribute("y"),
+                e.getAttribute("width"),
+                e.getAttribute("height")
+              );
+            else
+              this.add(
+                e.getAttribute("id"),
+                e.getAttribute("x"),
+                e.getAttribute("y")
+              );
+            break;
+          case "audio":
+            this.addAudio(e.getAttribute("id"));
+        }
+      }
     }
 
     add(id, x, y) {
@@ -126,27 +177,9 @@
   /**** script of the game
    */
 
-  let scene = new Scene();
-  scene.addInit("cuisine", 0, 0);
-
-  scene.addCropInit("robinet-", "cuisine", 20, 420, 120, 540);
-  scene.addCrop("robinet+", "cuisineOuverte", 20, 420, 120, 540);
-  scene.addCrop("placardEvier+", "cuisineOuverte", 90, 550, 200, 700);
-  scene.addInit("oeufs", 100, 600);
-  scene.addCropInit("placardEvier-", "cuisine", 90, 550, 200, 700);
-  scene.addAudio("robinet+");
-
-  scene.addCropInit("fenetre-", "cuisine", 120, 180, 250, 400);
-  scene.addCrop("fenetre+", "cuisineOuverte", 120, 180, 250, 400);
-
-  scene.addInit("saladier", 550, 340);
-
-  scene.addInit("mouton", 650, 540);
-  scene.addAudio("mouton");
-
-  scene.addInit("radio", 560, 210);
-  scene.addAudio("radio");
-  scene.add("saladier+oeufs", 550, 340);
+  let scene = new Scene("assets/scene.xml", () => {
+    scene = scene;
+  });
 </script>
 
 <style>
