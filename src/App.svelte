@@ -76,8 +76,9 @@
       }
 
       for (let e of xmlObjects) {
-        if (e.delay) setTimeout(addObject.bind(this, e), e.delay);
-        else addObject(e);
+        let delay = e.getAttribute("delay");
+        if (delay) setTimeout(addObject.bind(this, e), delay);
+        else addObject.bind(this)(e);
       }
     }
 
