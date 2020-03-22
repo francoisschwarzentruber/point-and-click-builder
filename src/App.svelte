@@ -46,6 +46,8 @@
     addObjects(xmlObjects) {
       function addObject(e) {
         switch (e.nodeName) {
+          case "hide":
+            this.hide(e.getAttribute("id"));
           case "object":
             if (e.getAttribute("src"))
               this.addCrop(

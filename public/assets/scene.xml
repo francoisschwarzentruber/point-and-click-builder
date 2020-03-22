@@ -30,7 +30,7 @@
 	<audio id="saladier+sucre+oeufs+farine+lait" />
 	<audio id="cuire" />
 	<event id="cuire" if="four- moule+saladier+sucre+oeufs+farine+lait">
-		<object delay="2000" id="gateau" x="550" y="340" width="120">
-		</object>
+		<hide id="moule+saladier+sucre+oeufs+farine+lait"/>
+		<object delay="2000" id="gateau" x="550" y="340" width="120"/>
 	</event>
 </scene>
