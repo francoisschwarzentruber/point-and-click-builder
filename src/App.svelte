@@ -23,8 +23,10 @@
     performEvents() {
       let isTrue = condition => {
         for (let id of condition.split(" ")) {
-          if (this.objects[id] == undefined)
+          if (this.objects[id] == undefined) {
             console.log("error in event condition: " + condition);
+            return false;
+          }
           if (!this.objects[id].visible) return false;
         }
         return true;

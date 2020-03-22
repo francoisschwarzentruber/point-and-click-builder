@@ -10,7 +10,7 @@
 	<object id="placardEvier-" src="cuisine" x="90" y="550" width="200" height="700" />
 
 
-	<object id="four+" src="cuisine" x="200" y="500" width="200" height="200" />
+	<object id="four+" src="cuisineOuverte" x="200" y="500" width="200" height="200" />
 	<object id="moule" x="230" y="550" width="50" />
 	<object id="four-" src="cuisine" x="200" y="500" width="200" height="200" />
 	<audio id="robinet+" />
