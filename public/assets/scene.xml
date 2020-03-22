@@ -8,9 +8,9 @@
 	<object id="lait" x="367" y="238" width="30" />
 	<object id="farine" x="426" y="225" width="60" />
 	<object id="placardEvier-" src="cuisine" x="90" y="550" width="200" height="700" />
-
 	<object id="four+" src="cuisineOuverte" x="200" y="500" width="400" height="700" />
 	<object id="moule" x="230" y="550" width="50" />
+	<object id="moule+saladier+sucre+oeufs+farine+lait" x="230" y="550" width="50" />
 	<object id="four-" src="cuisine" x="200" y="500" width="400" height="700" />
 	<audio id="robinet+" />
 	<object id="fenetre-" src="cuisine" x="120" y="180" width="250" height="400" />
