@@ -3,7 +3,8 @@
     constructor(filename, func) {
       this.objects = {};
       this.audios = {};
-      this.rules = [];
+      this.events = [];
+
       this.audios["error"] = new Audio("assets/error.mp3");
 
       fetch(filename)
@@ -16,27 +17,32 @@
 
     load(xmlDoc) {
       console.log(xmlDoc.documentElement);
-      for (let e of xmlDoc.documentElement.children) {
+      this.addObjects(xmlDoc.documentElement.children);
+    }
+
+    performEvents() {
+      let isTrue = condition => {
+        for (let id of condition.split(" ")) {
+          if (this.objects[id] == undefined)
+            console.log("error in event condition: " + condition);
+          if (!this.objects[id].visible) return false;
+        }
+        return true;
+      };
+
+      for (let i in this.events) {
+        let event = this.events[i];
+        if (isTrue(event.condition)) {
+          this.addObjects(event.xmlObjects);
+          this.events.splice(i, 1);
+          return;
+        }
+      }
+    }
+
+    addObjects(xmlObjects) {
+      function addObject(e) {
         switch (e.nodeName) {
-          case "object-init":
-            if (e.getAttribute("src"))
-              this.addCropInit(
-                e.getAttribute("id"),
-                e.getAttribute("src"),
-                e.getAttribute("x"),
-                e.getAttribute("y"),
-                e.getAttribute("width"),
-                e.getAttribute("height")
-              );
-            else
-              this.addInit(
-                e.getAttribute("id"),
-                e.getAttribute("x"),
-                e.getAttribute("y"),
-                e.getAttribute("width"),
-                e.getAttribute("height")
-              );
-            break;
           case "object":
             if (e.getAttribute("src"))
               this.addCrop(
@@ -58,7 +64,20 @@
             break;
           case "audio":
             this.addAudio(e.getAttribute("id"));
+            break;
+          case "event":
+            this.addEvent(
+              e.getAttribute("id"),
+              e.getAttribute("if"),
+              e.children
+            );
         }
+        scene = scene;
+      }
+
+      for (let e of xmlObjects) {
+        if (e.delay) setTimeout(addObject.bind(this, e), e.delay);
+        else addObject(e);
       }
     }
 
@@ -69,18 +88,27 @@
         y: y,
         width: width,
         height: height,
-        visible: false
+        visible: isVisibleFromStart(id)
       };
     }
 
-    addInit(id, x, y, width, height) {
+    addCrop(id, imgId, x, y, width, height) {
       this.objects[id] = {
         id: id,
         x: x,
         y: y,
-        width: width,
-        height: height,
-        visible: true
+        imgId: imgId,
+        width: width - x,
+        height: height - y,
+        visible: isVisibleFromStart(id)
+      };
+    }
+
+    addEvent(id, condition, xmlObjects) {
+      this.events[id] = {
+        id: id,
+        condition: condition,
+        xmlObjects: xmlObjects
       };
     }
 
@@ -120,36 +148,6 @@
       this.objects[id].visible = true;
       this.play(id);
     }
-
-    addCropInit(id, imgId, x, y, width, height) {
-      this.objects[id] = {
-        id: id,
-        x: x,
-        y: y,
-        imgId: imgId,
-        width: width - x,
-        height: height - y,
-        visible: true
-      };
-    }
-
-    addCrop(id, imgId, x, y, width, height) {
-      this.objects[id] = {
-        id: id,
-        x: x,
-        y: y,
-        imgId: imgId,
-        width: width - x,
-        height: height - y,
-        visible: false
-      };
-    }
-
-    init(id) {
-      this.objects[id].visible = true;
-    }
-
-    addRule(ruleText) {}
   }
 
   function IDgetDual(id) {
@@ -163,6 +161,7 @@
     if (id2 != undefined) {
       scene.hide(id);
       scene.show(id2);
+      scene.performEvents();
       scene = scene;
     } else if (scene.audios[id]) scene.audios[id].play();
   }
@@ -184,6 +183,7 @@
       scene.hide(idSource);
       scene.hide(idTarget);
       scene.show(idTarget + "+" + idSource);
+      scene.performEvents();
       scene = scene;
     } else scene.playError();
   }
@@ -198,6 +198,10 @@
   let scene = new Scene("assets/scene.xml", () => {
     scene = scene;
   });
+
+  function isVisibleFromStart(id) {
+    return id.indexOf("+") < 0;
+  }
 </script>
 
 <style>
@@ -239,7 +243,7 @@
           on:drop={event => drop(event, id)}
           on:click={() => click(id)}
           style={'position: absolute; display:inline-block; ' + 'left: ' + x + 'px; top: ' + y + 'px'}>
-          <img alt={id} width={width} height={height} src={'assets/' + id + '.png'} />
+          <img alt={id} {width} {height} src={'assets/' + id + '.png'} />
         </div>
       {/if}
     {/if}
