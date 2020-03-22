@@ -32,7 +32,9 @@
               this.addInit(
                 e.getAttribute("id"),
                 e.getAttribute("x"),
-                e.getAttribute("y")
+                e.getAttribute("y"),
+                e.getAttribute("width"),
+                e.getAttribute("height")
               );
             break;
           case "object":
@@ -49,7 +51,9 @@
               this.add(
                 e.getAttribute("id"),
                 e.getAttribute("x"),
-                e.getAttribute("y")
+                e.getAttribute("y"),
+                e.getAttribute("width"),
+                e.getAttribute("height")
               );
             break;
           case "audio":
@@ -58,8 +62,26 @@
       }
     }
 
-    add(id, x, y) {
-      this.objects[id] = { id: id, x: x, y: y, visible: false };
+    add(id, x, y, width, height) {
+      this.objects[id] = {
+        id: id,
+        x: x,
+        y: y,
+        width: width,
+        height: height,
+        visible: false
+      };
+    }
+
+    addInit(id, x, y, width, height) {
+      this.objects[id] = {
+        id: id,
+        x: x,
+        y: y,
+        width: width,
+        height: height,
+        visible: true
+      };
     }
 
     addAudio(id) {
@@ -97,10 +119,6 @@
       console.log(this.objects[id].visible);
       this.objects[id].visible = true;
       this.play(id);
-    }
-
-    addInit(id, x, y) {
-      this.objects[id] = { id: id, x: x, y: y, visible: true };
     }
 
     addCropInit(id, imgId, x, y, width, height) {
@@ -221,7 +239,7 @@
           on:drop={event => drop(event, id)}
           on:click={() => click(id)}
           style={'position: absolute; display:inline-block; ' + 'left: ' + x + 'px; top: ' + y + 'px'}>
-          <img alt={id} src={'assets/' + id + '.png'} />
+          <img alt={id} width={width} height={height} src={'assets/' + id + '.png'} />
         </div>
       {/if}
     {/if}
