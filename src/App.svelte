@@ -37,7 +37,7 @@
         if (isTrue(event.condition)) {
           this.play(event.id);
           this.addObjects(event.xmlObjects);
-          this.events.splice(i, 1);
+          this.events = this.events.splice(i, 1);
           return;
         }
       }
