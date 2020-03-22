@@ -14,7 +14,8 @@
 	<object-init id="saladier" x="550" y="340" />
 	<object id="saladier+sucre" x="550" y="340" />
 	<object id="saladier+sucre+oeufs" x="550" y="340" />
-	<object id="saladier+sucre+oeufs+lait" x="550" y="340" />
+	<object id="saladier+sucre+oeufs+farine" x="550" y="340" />
+	<object id="saladier+sucre+oeufs+farine-lait" x="550" y="340" />
 	<object-init id="mouton" x="650" y="540" />
 	<audio id="mouton" />
 	<object-init id="radio" x="560" y="210" />
