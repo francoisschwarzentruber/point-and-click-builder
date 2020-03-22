@@ -10,12 +10,11 @@
 	<object-init id="fenetre-" src="cuisine" x="120" y="180" width="250" height="400" />
 	<object-init id="fenetre+" src="cuisineOuverte" x="120" y="180" width="250" height="400" />
 	<object-init id="saladier" x="550" y="340" />
-	<object-init id="saladier+sucre" x="550" y="340" />
-	<object-init id="saladier+sucre+oeufs" x="550" y="340" />
-	<object-init id="saladier+sucre+oeufs+lait" x="550" y="340" />
+	<object id="saladier+sucre" x="550" y="340" />
+	<object id="saladier+sucre+oeufs" x="550" y="340" />
+	<object id="saladier+sucre+oeufs+lait" x="550" y="340" />
 	<object-init id="mouton" x="650" y="540" />
 	<audio id="mouton" />
 	<object-init id="radio" x="560" y="210" />
 	<audio id="radio" />
-	<object id="saladier+oeufs" x="550" y="340" />
 </scene>
