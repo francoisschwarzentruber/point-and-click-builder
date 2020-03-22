@@ -20,4 +20,8 @@
 	<audio id="mouton" />
 	<object-init id="radio" x="560" y="210" />
 	<audio id="radio" />
+	<audio id="saladier+sucre" />
+	<audio id="saladier+sucre+oeufs" />
+	<audio id="saladier+sucre+oeufs+farine" />
+	<audio id="saladier+sucre+oeufs+farine+lait" />
 </scene>
