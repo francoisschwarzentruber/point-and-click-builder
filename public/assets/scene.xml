@@ -2,20 +2,19 @@
 	<object id="cuisine" x="0" y="0" />
 	<object id="robinet-" src="cuisine" x="20" y="420" width="120" height="540" />
 	<object id="robinet+" src="cuisineOuverte" x="20" y="420" width="120" height="540" />
-	<object id="placardEvier+" src="cuisineOuverte" x="90" y="550" width="200" height="700" />
+	<object id="placardEvier+" src="cuisineOuverte" x="13" y="550" width="250" height="740" />
 	<object id="oeufs" x="100" y="600" width="50" />
 	<object id="sucre" x="430" y="310" width="50" />
 	<object id="lait" x="367" y="238" width="30" />
 	<object id="farine" x="426" y="225" width="60" />
 	<object id="placardEvier-" src="cuisine" x="90" y="550" width="200" height="700" />
 
-
-	<object id="four+" src="cuisineOuverte" x="200" y="500" width="200" height="200" />
+	<object id="four+" src="cuisineOuverte" x="200" y="500" width="400" height="700" />
 	<object id="moule" x="230" y="550" width="50" />
-	<object id="four-" src="cuisine" x="200" y="500" width="200" height="200" />
+	<object id="four-" src="cuisine" x="200" y="500" width="400" height="700" />
 	<audio id="robinet+" />
 	<object id="fenetre-" src="cuisine" x="120" y="180" width="250" height="400" />
-	<object id="fenetre+" src="cuisineOuverte" x="120" y="180" width="250" height="400" />
+	<object id="fenetre+" src="cuisineOuverte" x="120" y="180" width="300" height="420" />
 	<object id="saladier" x="550" y="340" />
 	<object id="saladier+sucre" x="550" y="340" />
 	<object id="saladier+sucre+oeufs" x="550" y="340" />
