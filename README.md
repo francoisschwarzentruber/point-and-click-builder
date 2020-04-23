@@ -2,6 +2,13 @@
 
 ---
 
+#Point and click builder
+
+This software is to build point an click for the Web. The idea is simple. In public/ you add a new folder for your project (for instance "gaspard", or "miaou").
+This folder contains all your images and sounds. It also contains a file called scene.xml that describes the logic of the scene.
+
+
+
 # svelte app
 
 This is a project template for [Svelte](https://svelte.dev) apps. It lives at https://github.com/sveltejs/template.
