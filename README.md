@@ -9,7 +9,14 @@ This folder contains all your images and sounds. It also contains a file called 
 # Description of a scene
 
 - ```<scene>...</scene>``` are the main tags.
+- ```<scene>...</scene>``` are the main tags.
+- ```<object id="oeufs" x="98" y="630" width="42" />''' means that there is an object called oeufs. Its picture is oeufs.png. Its position is (98, 630). Its width is 42 (that is, the image is resized).
+- ```<object id="robinet+" src="cuisineOuverte" x="20" y="420" width="120" height="540" />''' means that there is an object called robinet+. Its position is (20, 420). Its width is 120 and height is 540. The image is taken from cuisineOuverte.png.
+- ```<audio id="placardEvier+" />''' means that there is placardEvier+.mp3 that exists and should be played when placardEvier+ appears.
+- If robinet- and robinet+ exists, it means that the two objects toggle when you click on them.
+- An object containing a "+", e.g. saladier+sucre appears only if sucre is put on saladier.
 
+		
 
 ---
 # svelte app
