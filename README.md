@@ -1,16 +1,17 @@
-*Looking for a shareable component template? Go here --> [sveltejs/component-template](https://github.com/sveltejs/component-template)*
-
----
-
 # Point and click builder
 
 This software is made for building any point an click for the Web. The idea is simple. In public/ you add a new folder for your project (for instance "gaspard", or "miaou").
 This folder contains all your images and sounds. It also contains a file called scene.xml that describes the logic of the scene.
 
-- <scene>...</scene> are the main tags.
 
 
 
+# Description of a scene
+
+- "<scene>...</scene>" are the main tags.
+
+
+---
 # svelte app
 
 This is a project template for [Svelte](https://svelte.dev) apps. It lives at https://github.com/sveltejs/template.
