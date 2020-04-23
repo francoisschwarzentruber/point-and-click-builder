@@ -1,11 +1,13 @@
 <script>
+  const PROJECT = "miaou";
+
   class Scene {
     constructor(filename, func) {
       this.objects = {};
       this.audios = {};
       this.events = [];
 
-      this.audios["error"] = new Audio("assets/error.mp3");
+      this.audios["error"] = new Audio("error.mp3");
 
       fetch(filename)
         .then(response => response.text())
@@ -49,6 +51,10 @@
           case "hide":
             this.hide(e.getAttribute("id"));
           case "object":
+            if (e.getAttribute("sound"))
+              this.addAudio(e.getAttribute("id"), e.getAttribute("sound"));
+            else
+            this.addAudio(e.getAttribute("id"));
             if (e.getAttribute("src"))
               this.addCrop(
                 e.getAttribute("id"),
@@ -118,8 +124,9 @@
       };
     }
 
-    addAudio(id) {
-      this.audios[id] = new Audio("assets/" + id + ".mp3");
+    addAudio(id, filename) {
+      if (filename == undefined) filename = id;
+      this.audios[id] = new Audio(PROJECT + "/" + filename + ".mp3");
     }
 
     contains(id) {
@@ -201,7 +208,7 @@
   /**** script of the game
    */
 
-  let scene = new Scene("assets/scene.xml", () => {
+  let scene = new Scene(PROJECT + "/scene.xml", () => {
     scene = scene;
   });
 
@@ -237,7 +244,7 @@
           style={'position: absolute; overflow: hidden; ' + 'left: ' + x + 'px; top: ' + y + 'px; width: ' + width + 'px; height: ' + height + 'px'}>
           <img
             alt={id}
-            src={'assets/' + imgId + '.png'}
+            src={PROJECT + '/' + imgId + '.png'}
             style={'position: absolute; left: -' + x + 'px; top: -' + y + 'px;'} />
         </div>
       {:else}
@@ -249,7 +256,7 @@
           on:drop={event => drop(event, id)}
           on:click={() => click(id)}
           style={'position: absolute; display:inline-block; ' + 'left: ' + x + 'px; top: ' + y + 'px'}>
-          <img alt={id} {width} {height} src={'assets/' + id + '.png'} />
+          <img alt={id} {width} {height} src={PROJECT + '/' + id + '.png'} />
         </div>
       {/if}
     {/if}

@@ -3,6 +3,10 @@
 	<object id="robinet-" src="cuisine" x="20" y="420" width="120" height="540" />
 	<object id="robinet+" src="cuisineOuverte" x="20" y="420" width="120" height="540" />
 	<object id="placardEvier+" src="cuisineOuverte" x="13" y="550" width="250" height="740" />
+    <audio id="placardEvier+" />
+    <audio id="placardEvier-" />
+    <audio id="fenetre+" />
+    <audio id="fenetre-" />
 	<object id="oeufs" x="98" y="630" width="42" />
 	<object id="sucre" x="430" y="310" width="50" />
 	<object id="lait" x="367" y="238" width="30" />
@@ -12,6 +16,8 @@
 	<object id="moule" x="210" y="540" width="65" />
 	<object id="moule+saladier+sucre+oeufs+farine+lait" x="210" y="540" width="65" />
 	<object id="four-" src="cuisine" x="200" y="500" width="400" height="700" />
+    <audio id="four+" />
+    <audio id="four-" />
 	<audio id="robinet+" />
 	<object id="fenetre-" src="cuisine" x="120" y="180" width="250" height="400" />
 	<object id="fenetre+" src="cuisineOuverte" x="120" y="180" width="300" height="420" />
@@ -28,6 +34,7 @@
 	<audio id="saladier+sucre+oeufs" />
 	<audio id="saladier+sucre+oeufs+farine" />
 	<audio id="saladier+sucre+oeufs+farine+lait" />
+    <audio id="moule+saladier+sucre+oeufs+farine+lait" />
 	<audio id="cuire" />
 	<event id="cuire" if="four- moule+saladier+sucre+oeufs+farine+lait">
 		<hide id="moule+saladier+sucre+oeufs+farine+lait"/>

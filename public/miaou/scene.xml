@@ -1,0 +1,11 @@
+<scene>
+	<object id="background" x="0" y="0" />
+	<object id="oeilplante-" src="background" x="1050" y="250" width="1200" height="400" sound="oeil"/>
+	<object id="oeilplante+" src="background2" x="1050" y="250" width="1200" height="400" sound="oeil"/>
+
+	<object id="oeiloiseau-" src="background" x="800" y="400" width="850" height="450" sound="oeil"/>
+	<object id="oeiloiseau+" src="background2" x="800" y="400" width="850" height="450" sound="oeil"/>
+
+    <object id="machine-" src="background" x="200" y="600" width="500" height="800"/>
+	<object id="machine+" src="background2" x="200" y="600" width="500" height="800"/>
+</scene>
