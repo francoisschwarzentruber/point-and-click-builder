@@ -8,7 +8,7 @@ This folder contains all your images and sounds. It also contains a file called 
 
 # Description of a scene
 
-- "<scene>...</scene>" are the main tags.
+- ```<scene>...</scene>``` are the main tags.
 
 
 ---
