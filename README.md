@@ -2,7 +2,7 @@
 
 ---
 
-#Point and click builder
+# Point and click builder
 
 This software is made for building any point an click for the Web. The idea is simple. In public/ you add a new folder for your project (for instance "gaspard", or "miaou").
 This folder contains all your images and sounds. It also contains a file called scene.xml that describes the logic of the scene.
