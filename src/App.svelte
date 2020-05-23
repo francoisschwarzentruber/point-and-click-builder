@@ -1,5 +1,5 @@
 <script>
-  const PROJECT = "miaou";
+  const PROJECT = "gaspard";
 
   class Scene {
     constructor(filename, func) {
